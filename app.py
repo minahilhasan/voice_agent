@@ -1,0 +1,26 @@
+import streamlit as st
+from stt import transcribe_audio,aireply,give_response
+
+def main():
+    st.title("Real Time Voice Agent")
+    audio_file=st.file_uploader("Upload an audio file:",type=["mp3","wav"])
+    if audio_file:
+        st.write("transcribing audio....")
+        try:
+            transcription=transcribe_audio(audio_file)
+            st.subheader("Transcribe Text")
+            st.write(transcription)
+        except Exception as e:
+            st.error(f"Transcription Error: {e}")
+            return
+        reply=aireply(transcription)
+        if reply:
+            st.write(f"The AI responded: {reply}")
+            audio=give_response(reply)
+            st.audio(audio, format="audio/mp3")
+        else:
+            st.error("AI could not respond")
+        
+
+if __name__ == "__main__":
+    main()
