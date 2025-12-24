@@ -17,7 +17,10 @@ def main():
         if reply:
             st.write(f"The AI responded: {reply}")
             audio=give_response(reply)
-            st.audio(audio, format="audio/mp3")
+            if audio:
+                st.audio(audio, format="audio/mp3")
+            else:
+                st.error("Audio could not be generated")
         else:
             st.error("AI could not respond")
         
