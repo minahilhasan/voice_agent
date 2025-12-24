@@ -24,7 +24,7 @@ def aireply(transcription):
     ]
 
     response = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama3-7b-4096",
         messages=messages
     )
 
