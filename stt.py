@@ -44,7 +44,7 @@ def give_response(text):
     try:
         audio = elevenlabs.text_to_speech.convert(
             text=text,
-            voice_id="WL0ONoKCrfNk6IA8nKkK",
+            voice_id="sLfduly0sixkh8riDzed",
             model_id="eleven_multilingual_v2",
             output_format="mp3_44100_128",
         )
