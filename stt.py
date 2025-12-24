@@ -48,7 +48,8 @@ def give_response(text):
             model_id="eleven_multilingual_v2",
             output_format="mp3_44100_128",
         )
-        return audio 
+        audio_bytes = b"".join(audio)
+        return audio_bytes
     except Exception as e:
         st.error(f"TTS failed: {e}")
         return None
