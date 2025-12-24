@@ -41,7 +41,7 @@ def give_response(text):
         api_key=st.secrets["ELEVENLABS_API_KEY"],
     )
 
-     try:
+    try:
         audio = elevenlabs.text_to_speech.convert(
             text=text,
             voice_id="JBFqnCBsd6RMkjVDRZzb",
