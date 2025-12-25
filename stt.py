@@ -41,14 +41,10 @@ def give_response(text):
         deepgram = DeepgramClient(
             api_key=st.secrets["DEEPGRAM_API_KEY"]
         )
-
-        # This returns a generator
         response_generator = deepgram.speak.v1.audio.generate(
             text=text,
             model="aura-2-thalia-en"
         )
-
-        # Collect all bytes from the generator
         audio_bytes = b""
         for chunk in response_generator:
             audio_bytes += chunk
