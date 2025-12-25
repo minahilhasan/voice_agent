@@ -19,11 +19,12 @@ def main():
                 )
                 st.write("transcribing audio....")
                 st.subheader("Transcribe Text")
-                st.write(transcription[text])
+                transcribed=transcription[text]
+                st.write(transcribed)
         except Exception as e:
             st.error(f"Transcription Error: {e}")
             return
-        reply=aireply(transcription)
+        reply=aireply(transcribed)
         if reply:
             st.write(f"The AI responded: {reply}")
             audio=give_response(reply)
