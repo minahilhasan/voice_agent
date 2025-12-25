@@ -1,8 +1,11 @@
 import openai
 import streamlit as st
 from groq import Groq
-from elevenlabs.client import ElevenLabs
-from elevenlabs.play import play
+import logging
+from deepgram import DeepgramClient
+import streamlit as st
+
+os.environ["DEEPGRAM_API_KEY"] = st.secrets["DEEPGRAM_API_KEY"]
 
 def transcribe_audio(audio_file):
     openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -35,21 +38,28 @@ def aireply(transcription):
 
     return reply
 
-
 def give_response(text):
-    elevenlabs = ElevenLabs(
-        api_key=st.secrets["ELEVENLABS_API_KEY"],
-    )
-
     try:
-        audio = elevenlabs.text_to_speech.convert(
+        deepgram = DeepgramClient()
+
+        response = deepgram.speak.v1.audio.generate(
             text=text,
-            voice_id="sLfduly0sixkh8riDzed",
-            model_id="eleven_multilingual_v2",
-            output_format="mp3_44100_128",
+            model="aura-2-thalia-en"
         )
-        audio_bytes = b"".join(audio)
+
+        audio_bytes = response.stream.getvalue()
+
+        with open("test.mp3", "wb") as audio_file:
+            audio_file.write(audio_bytes)
+
+        st.success("Audio saved successfully!")
         return audio_bytes
+
     except Exception as e:
-        st.error(f"TTS failed: {e}")
+        st.error(f"Exception: {e}")
         return None
+
+
+    
+    
+       
