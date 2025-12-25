@@ -19,7 +19,7 @@ def main():
                 )
                 st.write("transcribing audio....")
                 st.subheader("Transcribe Text")
-                st.write(transcription)
+                st.write(transcription[text])
         except Exception as e:
             st.error(f"Transcription Error: {e}")
             return
