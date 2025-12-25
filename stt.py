@@ -42,22 +42,23 @@ def give_response(text):
             api_key=st.secrets["DEEPGRAM_API_KEY"]
         )
 
-        response = deepgram.speak.v1.audio.generate(
+        # This returns a generator
+        response_generator = deepgram.speak.v1.audio.generate(
             text=text,
             model="aura-2-thalia-en"
         )
 
-        audio_bytes = response.stream.getvalue()
+        # Collect all bytes from the generator
+        audio_bytes = b""
+        for chunk in response_generator:
+            audio_bytes += chunk
 
-        with open("test.mp3", "wb") as audio_file:
-            audio_file.write(audio_bytes)
-
-        st.success("Audio saved successfully!")
         return audio_bytes
 
     except Exception as e:
         st.error(f"Exception: {e}")
         return None
+
 
 
     
