@@ -4,9 +4,6 @@ from groq import Groq
 import logging
 from deepgram import DeepgramClient
 import streamlit as st
-import os
-
-os.environ["DEEPGRAM_API_KEY"] = st.secrets["DEEPGRAM_API_KEY"]
 
 def transcribe_audio(audio_file):
     openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -41,7 +38,7 @@ def aireply(transcription):
 
 def give_response(text):
     try:
-        deepgram = DeepgramClient()
+        deepgram = DeepgramClient(api_key=st.secrets["DEEPGRAM_API_KEY"])
 
         response = deepgram.speak.v1.audio.generate(
             text=text,
