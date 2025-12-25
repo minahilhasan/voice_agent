@@ -1,15 +1,25 @@
 import streamlit as st
 from stt import transcribe_audio,aireply,give_response
+from streamlit_audio_recorder import audio_recorder
 
 def main():
     st.title("Real Time Voice Agent")
-    audio_file=st.file_uploader("Upload an audio file:",type=["mp3","wav"])
-    if audio_file:
-        st.write("transcribing audio....")
+    audio_bytes = audio_recorder()
+    if audio_bytes:
+        st.audio(audio_bytes, format="audio/wav")
+        st.write("Transcribing audio...")
         try:
-            transcription=transcribe_audio(audio_file)
-            st.subheader("Transcribe Text")
-            st.write(transcription)
+            with open("temp_audio.wav", "wb") as f:
+                f.write(audio_bytes)
+            with open("temp_audio.wav", "rb") as audio_file:
+                transcription = openai.Audio.transcribe(
+                    model="whisper-1",
+                    file=audio_file,
+                    language="en"
+                )
+                st.write("transcribing audio....")
+                st.subheader("Transcribe Text")
+                st.write(transcription)
         except Exception as e:
             st.error(f"Transcription Error: {e}")
             return
