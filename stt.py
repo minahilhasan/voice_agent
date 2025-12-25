@@ -38,7 +38,9 @@ def aireply(transcription):
 
 def give_response(text):
     try:
-        deepgram = DeepgramClient(api_key=st.secrets["DEEPGRAM_API_KEY"])
+        deepgram = DeepgramClient(
+            api_key=st.secrets["DEEPGRAM_API_KEY"]
+        )
 
         response = deepgram.speak.v1.audio.generate(
             text=text,
