@@ -4,6 +4,7 @@ from groq import Groq
 import logging
 from deepgram import DeepgramClient
 import streamlit as st
+import os
 
 os.environ["DEEPGRAM_API_KEY"] = st.secrets["DEEPGRAM_API_KEY"]
 
