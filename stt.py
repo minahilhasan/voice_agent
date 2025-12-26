@@ -20,14 +20,15 @@ def aireply(transcription):
     )
 
     messages = [
-    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "system", "content": "You are a helpful assistant who will only give concise 2-3 lines answers."},
     {"role": "user", "content": transcription}
     ]
 
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=messages,
-        max_tokens=250
+        max_tokens=250,
+        temperature=0.2
     )
 
     reply = response.choices[0].message.content
