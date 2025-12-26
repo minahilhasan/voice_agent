@@ -3,11 +3,8 @@ from stt import transcribe_audio, aireply, give_response
 
 def main():
     st.title("Real Time Voice Agent")
-
-    # Option 1: record audio from mic
     recorded_audio = st.audio_input("Record your voice")
 
-    # Option 2: upload audio file
     uploaded_audio = st.file_uploader(
         "Or upload an audio file:",
         type=["mp3", "wav"]
