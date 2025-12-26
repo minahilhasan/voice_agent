@@ -27,7 +27,7 @@ def aireply(transcription):
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=messages,
-        max_token=250
+        max_tokens=250
     )
 
     reply = response.choices[0].message.content
